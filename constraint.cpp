@@ -14,7 +14,7 @@ static char *fdpath(int fd) {
 	return path;
 }
 
-int constrain(int dir,int cloneflags,char *prog,char **argv,char **env) {
+int constrain(int cloneflags,char *prog,char **argv,char **env) {
 	int cpid;
 	siginfo_t sigstuff;
 	cpid = syscall(SYS_clone,(cloneflags & (CLONE_NEWNS|CLONE_NEWPID|CLONE_NEWIPC|CLONE_NEWNET|CLONE_NEWUTS)) | SIGCHLD,0);
@@ -22,11 +22,11 @@ int constrain(int dir,int cloneflags,char *prog,char **argv,char **env) {
 		return -1;
 	}
 	else if(!cpid) {
-		char *dirpath = fdpath(dir);
-		if(!dirpath || chroot(dirpath)) {
-			exit(EXIT_FAILURE);
-		}
-		free(dirpath);
+		//char *dirpath = fdpath(dir);
+		//if(!dirpath || chroot(dirpath)) {
+		//	exit(EXIT_FAILURE);
+		//}
+		//free(dirpath);
 		execve(prog,argv,env);
 		exit(EXIT_FAILURE);
 	}

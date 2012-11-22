@@ -11,7 +11,7 @@ int parseflags(char *arg) {
 		switch(arg[i]) {
 			case 'p':
 				ret |= CLONE_NEWPID;
-			case 'f':
+			case 'm':
 				ret |= CLONE_NEWNS;
 			case 'i':
 				ret |= CLONE_NEWIPC;
@@ -30,13 +30,14 @@ int main(int argc, char **argv) {
 	if(argc < 4) {
 		return EXIT_FAILURE;
 	}
-	int dir = open(argv[2],O_RDONLY);
-	if(dir < 0) {
-		return EXIT_FAILURE;
-	}
+	//int dir = open(argv[2],O_RDONLY);
+	//if(dir < 0) {
+	//	return EXIT_FAILURE;
+	//}
 	int flags = parseflags(argv[1]);
 	
-	int ret = constrain(dir,flags,argv[3],argv+3,environ);
+//	int ret = constrain(dir,flags,argv[3],argv+3,environ);
+	int ret = constrain(flags,argv[2],argv+2,environ);
 	if(0 <= ret < 256) {
 		return ret;
 	}
