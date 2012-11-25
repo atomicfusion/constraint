@@ -11,14 +11,19 @@ int parseflags(char *arg) {
 		switch(arg[i]) {
 			case 'p':
 				ret |= CLONE_NEWPID;
+				break;
 			case 'm':
 				ret |= CLONE_NEWNS;
+				break;
 			case 'i':
 				ret |= CLONE_NEWIPC;
+				break;
 			case 'n':
 				ret |= CLONE_NEWNET;
+				break;
 			case 'u':
 				ret |= CLONE_NEWUTS;
+				break;
 		}
 	}
 	return ret;
@@ -27,7 +32,7 @@ int parseflags(char *arg) {
 extern char **environ;
 
 int main(int argc, char **argv) {
-	if(argc < 4) {
+	if(argc < 3) {
 		return EXIT_FAILURE;
 	}
 	//int dir = open(argv[2],O_RDONLY);
